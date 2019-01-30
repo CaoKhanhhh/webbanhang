@@ -19,6 +19,7 @@ Route::post('luu','HomeController@postcheckout')->name('product.postcheckout');
 Route::get('login','HomeController@login')->name('login');
 Route::get('logout','HomeController@logout')->name('logout');
 Route::post('login','HomeController@postLogin');
+Route::post('login','HomeController@createUsers')->name('user.create');
 
 
 

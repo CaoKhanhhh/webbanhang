@@ -9,7 +9,7 @@ use Cart;
 class CartController extends Controller
 {
    
-    function add(Request $rq){
+    public function add(Request $rq){
     	$id =$rq->id;
     	if($id != null){
    			$pro=Product::find($id);
@@ -21,18 +21,18 @@ class CartController extends Controller
 		}
    		return redirect(route('Cart.index'));
     }
-    function index(){
+    public function index(){
     	$content=Cart::content();
       $tongcong= Cart::subtotal(0);
     	return view('Cart',compact('content','tongcong'));
     }
 
-    function remove(Request $rq){
+    public function remove(Request $rq){
     	Cart::remove($rq->id);
       $total=Cart::subtotal(0);
       return response()->json(['success' => true, 'id' =>$rq->id,'total' =>$total]);   
     }
-    function change(Request $rq){
+    public function change(Request $rq){
       $pro=Cart::get($rq->id);
       $valrp= $pro->price*$rq->val;
       Cart::update($rq->id,['qty'=> $rq->val,'options->tong' => $valrp]); 

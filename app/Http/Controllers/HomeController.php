@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CartRequest;
+use App\Http\Requests\UserRequest;
 use App\Product;
 use App\Category;
 use App\Order;
 use App\Order_details;
+use App\User;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Cart;
 class HomeController extends Controller
 {
@@ -99,6 +102,11 @@ class HomeController extends Controller
 			return view('admin.login')->with('msg', 'Sai tài khoản/mật khẩu');
 		}
 	}
-
-
+	public function createUsers(UserRequest $rq){
+		$user =new User();
+		$user->fill($rq->all());
+		$user->password=Hash::make($rq->password);
+		$user->save();
+		return view('admin.login');
+	}
 }
